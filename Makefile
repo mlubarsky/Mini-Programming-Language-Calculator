@@ -14,3 +14,4 @@ $(PROG) : project04.h $(OBJS)
 
 clean :
 	rm -rf $(PROG) $(OBJS)
+	
