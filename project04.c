@@ -59,38 +59,38 @@ void int_to_string(int number, int base) {
 
 int main(int argc, char **argv) {
 
-    struct scan_table_st scan_table; // Table of tokens
-    struct parse_table_st parse_table; // Table of parse nodes
-    struct parse_node_st *parse_tree; // Tree (pointers only) of parse nodes
+    	struct scan_table_st scan_table; // Table of tokens
+    	struct parse_table_st parse_table; // Table of parse nodes
+   	struct parse_node_st *parse_tree; // Tree (pointers only) of parse nodes
 
-    char input[SCAN_INPUT_LEN];
-    int len;
+    	char input[SCAN_INPUT_LEN];
+    	int len;
 
-	// Parse for the command line arguments
-	int base = 10;
-    for (int i = 1; i < argc; i++) {
-    	if (!strncmp(argv[i], "-b", 2)) {
-    		base = atoi(argv[i + 1]);
-    		i++;
-    	} else if (!strncmp(argv[i], "-e", 2)) {
+    	// Parse for the command line arguments
+    	int base = 10;
+    	for (int i = 1; i < argc; i++) {
+    		if (!strncmp(argv[i], "-b", 2)) {
+    			base = atoi(argv[i + 1]);
+    			i++;
+    		} else if (!strncmp(argv[i], "-e", 2)) {
    			strncpy(input, argv[i + 1], SCAN_INPUT_LEN);
    			len = strnlen(input, SCAN_INPUT_LEN);
-    		i++;
+    			i++;
+    		}
     	}
-    }
 
-	// Scanning
-    scan_table_init(&scan_table);
-    scan_table_scan(&scan_table, input, len);
+    	// Scanning
+    	scan_table_init(&scan_table);
+    	scan_table_scan(&scan_table, input, len);
 
-	// Parsing
-    parse_table_init(&parse_table);
-    parse_tree = parse_program(&scan_table);
-
-	// Evaluating
+    	// Parsing
+    	parse_table_init(&parse_table);
+    	parse_tree = parse_program(&scan_table);
+	
+    	// Evaluating
 	int output_number =  eval_tree(parse_tree);
-    int_to_string(output_number, base);
-    printf("\n");
+    	int_to_string(output_number, base);
+    	printf("\n");
     
-    return 0;
+    	return 0;
 }
